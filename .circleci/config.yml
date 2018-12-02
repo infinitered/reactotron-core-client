@@ -54,8 +54,8 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run:
-        name: Run Build
-        command: yarn build
+          name: Run Build
+          command: yarn build
       - save_cache:
           name: Save node modules
           paths:
