@@ -2,7 +2,9 @@
 
 This provides the core functionality of the clients allowing it talk to talk to the server.
 
-It is used by `reactotron-react-dom` and `reactotron-react-native`.
+It is used by `reactotron-react-js` and `reactotron-react-native`.
+
+Issue are tracked in the `reactotron` repository currently. That can be found at https://github.com/infinitered/reactotron/issues
 
 # Usage
 
@@ -50,7 +52,7 @@ const client = createClient({
     }
     console.log(`I just received a ${type} command`)
     console.log(payload)
-  }  
+  }
 })
 
 // connect to the server
@@ -146,7 +148,7 @@ client.send('bench.report', {
   steps: [
     { title: 'Step 1', time: 0 },
     { title: 'Step 2', time: 123 },
-    { title: 'Step 3', time: 1024 }    
+    { title: 'Step 3', time: 1024 }
   ]
 })
 
@@ -511,7 +513,7 @@ Here's what a plugin can do.
   // Every entry in here will become a method on the Reactotron client object.
   // Collisions are handled on a first-come first-serve basis.
   //
-  // These names are reserved:  
+  // These names are reserved:
   //   connect, configure, send, use, options, connected, plugins, and socket.
   //
   // Sorry.
