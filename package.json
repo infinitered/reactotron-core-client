@@ -7,7 +7,7 @@
     "LICENSE",
     "README.md"
   ],
-  "main": "dist/reactotron-core-client.js",
+  "main": "dist/index.js",
   "typings": "dist/types/reactotron-core-client.d.ts",
   "scripts": {
     "test": "jest",

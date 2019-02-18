@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "allowJs": false,
-    "noEmit": true,
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "module": "es2015",
