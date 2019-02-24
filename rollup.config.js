@@ -18,9 +18,11 @@ export default {
       REACTOTRON_CORE_CLIENT_VERSION: coreClientVersion,
     }),
     babel({ extensions: [".ts"], runtimeHelpers: true }),
-    minify({
-      comments: false,
-    }),
+    process.env.NODE_ENV === "production"
+      ? minify({
+          comments: false,
+        })
+      : null,
     filesize(),
   ],
 }
