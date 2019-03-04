@@ -3,7 +3,7 @@
   "version": "2.5.0",
   "description": "Grants Reactotron clients the ability to talk to a Reactotron server.",
   "author": "Infinite Red",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/infinitered/reactotron-core-client/issues"
   },
