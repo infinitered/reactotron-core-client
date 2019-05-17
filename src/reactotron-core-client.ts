@@ -69,15 +69,12 @@ export interface CustomCommand {
   args?: CustomCommandArg[]
 }
 
-export interface Reactotron {
+export interface ReactotronCore {
   startTimer: () => () => number
-  configure: (options?: ClientOptions) => Reactotron
   close: () => void
-  connect: () => Reactotron
   send: (type: any, payload?: any, important?: boolean) => void
   display: (config?: any) => void
   reportError: (this: any, error: any) => void
-  use: (pluginCreator?: (client: Reactotron) => any) => Reactotron
   onCustomCommand: (config: CustomCommand | string, optHandler?: () => void) => () => void
 
   /* Provided by plugins */
