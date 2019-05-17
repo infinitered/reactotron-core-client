@@ -118,6 +118,16 @@ export interface ReactotronCore {
   stateBackupResponse?: (state: any) => void
 }
 
+export interface Reactotron<ReactotronSubtype = ReactotronCore> extends ReactotronCore {
+  configure: (options?: ClientOptions) => Reactotron<ReactotronSubtype> & ReactotronSubtype
+  
+  use: (
+    pluginCreator?: (client: Reactotron<ReactotronSubtype> & ReactotronSubtype) => any,
+  ) => Reactotron<ReactotronSubtype> & ReactotronSubtype
+  
+  connect: () => Reactotron<ReactotronSubtype> & ReactotronSubtype;
+}
+
 export class ReactotronImpl implements Reactotron {
   // the configuration options
   options: ClientOptions = Object.assign({}, DEFAULT_OPTIONS)
