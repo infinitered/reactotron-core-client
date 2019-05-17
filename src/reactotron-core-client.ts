@@ -119,6 +119,9 @@ export interface ReactotronCore {
 }
 
 export interface Reactotron<ReactotronSubtype = ReactotronCore> extends ReactotronCore {
+  /**
+  * Set the configuration options.
+  */
   configure: (options?: ClientOptions) => Reactotron<ReactotronSubtype> & ReactotronSubtype
   
   use: (
@@ -128,7 +131,7 @@ export interface Reactotron<ReactotronSubtype = ReactotronCore> extends Reactotr
   connect: () => Reactotron<ReactotronSubtype> & ReactotronSubtype;
 }
 
-export class ReactotronImpl implements Reactotron {
+export class ReactotronImpl<ReactotronSubtype = ReactotronCore> implements Reactotron<ReactotronSubtype> {
   // the configuration options
   options: ClientOptions = Object.assign({}, DEFAULT_OPTIONS)
 
@@ -180,7 +183,7 @@ export class ReactotronImpl implements Reactotron {
   /**
    * Set the configuration options.
    */
-  configure(options: ClientOptions = {}): Reactotron {
+  configure(options: ClientOptions = {}): Reactotron<ReactotronSubtype> & ReactotronSubtype {
     // options get merged & validated before getting set
     const newOptions = Object.assign({}, this.options, options)
     validate(newOptions)
@@ -191,7 +194,7 @@ export class ReactotronImpl implements Reactotron {
       this.options.plugins.forEach(p => this.use(p))
     }
 
-    return this
+    return this as any as Reactotron<ReactotronSubtype> & ReactotronSubtype // cast needed to allow patching by other implementations like reactotron-react-native
   }
 
   close() {
@@ -202,7 +205,7 @@ export class ReactotronImpl implements Reactotron {
   /**
    * Connect to the Reactotron server.
    */
-  connect(): Reactotron {
+  connect(): Reactotron<ReactotronSubtype> & ReactotronSubtype {
     this.connected = true
     const {
       createSocket,
@@ -302,7 +305,7 @@ export class ReactotronImpl implements Reactotron {
     // assign the socket to the instance
     this.socket = socket
 
-    return this
+    return this as any as Reactotron<ReactotronSubtype> & ReactotronSubtype // cast needed to allow patching by other implementations like reactotron-react-native
   }
 
   /**
@@ -361,7 +364,7 @@ export class ReactotronImpl implements Reactotron {
   /**
    * Adds a plugin to the system
    */
-  use(pluginCreator?: (client: Reactotron) => any): Reactotron {
+  use(pluginCreator?: (client: Reactotron<ReactotronSubtype> & ReactotronSubtype) => any): Reactotron<ReactotronSubtype> & ReactotronSubtype {
     // we're supposed to be given a function
     if (typeof pluginCreator !== "function") {
       throw new Error("plugins must be a function")
@@ -412,7 +415,7 @@ export class ReactotronImpl implements Reactotron {
     plugin.onPlugin && typeof plugin.onPlugin === "function" && plugin.onPlugin.bind(this)(this)
 
     // chain-friendly
-    return this
+    return this as any as Reactotron<ReactotronSubtype> & ReactotronSubtype // cast needed to allow patching by other implementations like reactotron-react-native
   }
 
   onCustomCommand(config: CustomCommand | string, optHandler?: () => void): () => void {
@@ -505,8 +508,8 @@ export class ReactotronImpl implements Reactotron {
 }
 
 // convenience factory function
-export function createClient(options?: ClientOptions) {
-  const client = new ReactotronImpl()
+export function createClient<ReactotronSubtype = ReactotronCore>(options?: ClientOptions): Reactotron<ReactotronSubtype> & ReactotronSubtype {
+  const client = new ReactotronImpl<ReactotronSubtype>()
   client.configure(options)
-  return client
+  return client as any as Reactotron<ReactotronSubtype> & ReactotronSubtype // cast needed to allow patching by other implementations like reactotron-react-native
 }
