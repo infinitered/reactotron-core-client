@@ -123,7 +123,7 @@ export interface Reactotron {
   stateBackupResponse?: (state: any) => void
 
   // REPL Plugin
-  repl?: (name: string, value: object | Function) => void
+  repl?: (name: string, value: object | Function | string | number) => void
 }
 
 export class ReactotronImpl implements Reactotron {
