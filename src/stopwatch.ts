@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-declare var global: any
+declare const global: any
 
 const hasHirezNodeTimer =
   false &&
