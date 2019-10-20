@@ -23,7 +23,7 @@
     "build": "npm-run-all clean tsc compile",
     "build:dev": "npm-run-all clean tsc compile:dev",
     "clean": "trash dist",
-    "lint": "eslint src test --ext .ts,.tsx",
+    "lint": "eslint src --ext .ts,.tsx",
     "compile": "NODE_ENV=production rollup -c",
     "compile:dev": "NODE_ENV=development rollup -c",
     "tsc": "tsc",
