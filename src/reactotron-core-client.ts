@@ -123,6 +123,17 @@ export interface ReactotronCore {
   repl?: (name: string, value: object | Function | string | number) => void
 }
 
+export interface ReturnTypeReactotronUse {
+  onCommand?: (args: { type: string; payload?: any }) => any
+  onConnect?: () => any
+  onDisconnect?: () => any
+  onPlugin?: (plugin: ReactotronCore) => void
+  /**
+   * These names are reserved:
+   *  `connect, configure, send, use, options, connected, plugins and socket.`
+   */
+  features?: Record<string, any>
+}
 export interface Reactotron<ReactotronSubtype = ReactotronCore> extends ReactotronCore {
   /**
    * Set the configuration options.
@@ -130,7 +141,9 @@ export interface Reactotron<ReactotronSubtype = ReactotronCore> extends Reactotr
   configure: (options?: ClientOptions) => Reactotron<ReactotronSubtype> & ReactotronSubtype
 
   use: (
-    pluginCreator?: (client: Reactotron<ReactotronSubtype> & ReactotronSubtype) => any
+    pluginCreator?: (
+      client: Reactotron<ReactotronSubtype> & ReactotronSubtype
+    ) => ReturnTypeReactotronUse
   ) => Reactotron<ReactotronSubtype> & ReactotronSubtype
 
   connect: () => Reactotron<ReactotronSubtype> & ReactotronSubtype
@@ -376,7 +389,9 @@ export class ReactotronImpl<ReactotronSubtype = ReactotronCore>
    * Adds a plugin to the system
    */
   use(
-    pluginCreator?: (client: Reactotron<ReactotronSubtype> & ReactotronSubtype) => any
+    pluginCreator?: (
+      client: Reactotron<ReactotronSubtype> & ReactotronSubtype
+    ) => ReturnTypeReactotronUse
   ): Reactotron<ReactotronSubtype> & ReactotronSubtype {
     // we're supposed to be given a function
     if (typeof pluginCreator !== "function") {
