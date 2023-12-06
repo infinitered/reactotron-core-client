@@ -71,6 +71,13 @@ export interface CustomCommand {
   args?: CustomCommandArg[]
 }
 
+export interface LogArguments {
+  name: string,
+  value: any,
+  important?: boolean,
+  preview?: string
+}
+
 export interface ReactotronCore {
   startTimer: () => () => number
   close: () => void
@@ -106,8 +113,8 @@ export interface ReactotronCore {
   }) => void
 
   // Logger Plugin
-  log?: (...args: any[]) => void
-  logImportant?: (...args: any[]) => void
+  log?: (...args: (LogArguments|any)[]) => void
+  logImportant?: (...args: (LogArguments|any)[]) => void
   debug?: (message: any, important?: boolean) => void
   warn?: (message: any) => void
   error?: (message: any, stack: any) => void
